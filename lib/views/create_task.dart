@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_b23_firebase/models/priority.dart';
 import 'package:flutter_b23_firebase/models/task.dart';
+import 'package:flutter_b23_firebase/providers/user.dart';
 import 'package:flutter_b23_firebase/services/priority_services.dart';
 import 'package:flutter_b23_firebase/services/task.dart';
+import 'package:provider/provider.dart';
 
 class CreateTaskView extends StatefulWidget {
   const CreateTaskView({super.key});
@@ -29,6 +31,8 @@ class _CreateTaskViewState extends State<CreateTaskView> {
   }
   @override
   Widget build(BuildContext context) {
+    var user = Provider.of<UserProvider>
+      (context);
     return Scaffold(
       appBar: AppBar(title: Text("create task "),),
       body: Column(
@@ -64,6 +68,7 @@ class _CreateTaskViewState extends State<CreateTaskView> {
                 title: titleController.text,
                 decripation: descriptionController.text,
                   isCompleted: false,
+                userID: user.getUser().docId.toString(),
                 priorityID: _selectedPriority!.docId.toString(),
                 creatAt: DateTime.now().millisecondsSinceEpoch, decription: '',
               )
